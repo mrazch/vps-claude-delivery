@@ -1,0 +1,9 @@
+[
+  "DOMAIN-SUFFIX,claude.com,DELIVERY",
+  "DOMAIN-SUFFIX,claude.ai,DELIVERY",
+  "DOMAIN-SUFFIX,anthropic.com,DELIVERY",
+  "GEOIP,LAN,DIRECT,no-resolve",
+  "GEOSITE,cn,DIRECT",
+  "GEOIP,CN,DIRECT,no-resolve",
+  "MATCH,DELIVERY"
+]

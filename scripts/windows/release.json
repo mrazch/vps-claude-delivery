@@ -1,0 +1,21 @@
+{
+  "version": "v2.5.9",
+  "coreInReleaseNotes": "v1.19.33",
+  "source": "https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/v2.5.9",
+  "assetMetadata": "https://api.github.com/repos/clash-verge-rev/clash-verge-rev/releases/tags/v2.5.9",
+  "license": "GPL-3.0",
+  "assets": {
+    "x64": {
+      "name": "Clash.Verge_2.5.9_x64-setup.exe",
+      "bytes": 60044648,
+      "sha256": "bb78a983222ec98d017e77485f324ba994b10d00e4109ae0b54bf28ff8d727aa",
+      "url": "https://github.com/clash-verge-rev/clash-verge-rev/releases/download/v2.5.9/Clash.Verge_2.5.9_x64-setup.exe"
+    },
+    "arm64": {
+      "name": "Clash.Verge_2.5.9_arm64-setup.exe",
+      "bytes": 53757496,
+      "sha256": "0a716f8c31cfd934e45ff6a07ead234ecc91e37cdd72034546e695b149588b27",
+      "url": "https://github.com/clash-verge-rev/clash-verge-rev/releases/download/v2.5.9/Clash.Verge_2.5.9_arm64-setup.exe"
+    }
+  }
+}
