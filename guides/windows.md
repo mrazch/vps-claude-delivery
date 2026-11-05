@@ -10,7 +10,7 @@ Windows 应用 → mihomo TUN → 匹配分流规则
 
 ## 切换前
 
-1. 在采购 VPS、付费客户端或登录 Claude 前，用官方页面确认实际使用地点、账户条件、年龄要求和所选客户端的兼容性。实际使用地点须在支持范围内。条件不满足时，停下 Claude 接入和相关采购。登录、验证码和付款由账户持有人自己完成。[Claude 入门](https://support.claude.com/en/articles/8114491-get-started-with-claude) · [Claude 支持地点](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)
+1. 在采购 VPS、付费客户端或登录 Claude 前，用官方页面确认实际使用地点、账户条件、年龄要求和所选客户端的兼容性。实际使用地点须在支持范围内。登录、验证码和付款由账户持有人自己完成。[Claude 入门](https://support.claude.com/en/articles/8114491-get-started-with-claude) · [Claude 支持地点](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)
 2. 先完成[离线恢复准备](recovery.md#切换前填写恢复卡)。确认手边有旧配置、原有设置记录和恢复步骤。保留原客户端及配置。首次切换前约定测试窗口，以及出现什么情况就回退。
 3. 在 Windows「设置」的系统信息中核对系统类型，取得与架构匹配、已经过交付核对的 Clash Verge Rev 安装包。版本、随包内核、摘要和可用签名须按交付记录确认。首版候选发行版为 v2.5.9，核对实际启动的内核后再确认本次使用的组合。客户端版本不同，界面文字和授权步骤也可能不同。[Clash Verge Rev 官方发行](https://github.com/clash-verge-rev/clash-verge-rev/releases/tag/v2.5.9)
 4. 如果电脑已有 Node.js 22 或更高版本，Agent 可从交付文件夹运行 `node scripts/windows/preflight.cjs` 查看架构和应选安装包。取得安装包后，运行 `node scripts/windows/preflight.cjs --installer '<本地安装包路径>'` 核对文件名、字节数和 SHA-256。仅传本地文件，另用 Windows 原生方式检查签名。只有聊天能力时，可在 Windows 设置核对架构，并按 [客户操作单](../docs/windows-iphone-field-test.md#安装前核对) 手动核对摘要。
