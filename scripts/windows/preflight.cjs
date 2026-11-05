@@ -52,7 +52,7 @@ if (require.main === module) {
     process.stdout.write(JSON.stringify(result, null, 2) + '\n');
     if (result.digest !== 'not-supplied' && result.digest !== 'matches') process.exitCode = 1;
   }).catch(error => {
-    process.stderr.write((/^[A-Z_]+$/.test(error.message) ? error.message : 'WINDOWS_PREFLIGHT_READ_ERROR') + '\n');
+    process.stderr.write((/^[A-Z_]+$/.test(error.message) ? error.message : 'WINDOWS_PREFLIGHT_READ_ERROR') + '\n请按 guides/windows.md 核对架构、命令与本地安装包。校验失败时重新从官方来源取得匹配文件，不要运行安装器。\n');
     process.exitCode = 1;
   });
 }

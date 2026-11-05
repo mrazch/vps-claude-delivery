@@ -17,7 +17,7 @@
 
 ## 客户本地进度
 
-Windows 电脑已有 Node.js 24 且 Agent 能运行本地工具时，从同一个固定版本文件夹执行。Mac 手动分支使用本地脱敏反馈表。每位客户使用独立文件夹。实操和演练的记录分开保存。
+Windows 电脑已有 Node.js 22 或更高版本 且 Agent 能运行本地工具时，从同一个固定版本文件夹执行。Mac 手动分支使用本地脱敏反馈表。每位客户使用独立文件夹。实操和演练的记录分开保存。
 
 ~~~powershell
 node scripts/progress.cjs --customer status
@@ -44,7 +44,7 @@ node scripts/progress.cjs --customer pass 0 preflight 'device-inventory,account-
 
 ## 离线验证和续接
 
-使用已具备的 Node.js 24。从同一个固定版本的本地文件夹打开 PowerShell。脚本接收合成证据，仅在仓库下的 `runtime/progress/` 保存进度。
+使用已具备的 Node.js 22 或更高版本。从同一个固定版本的本地文件夹打开 PowerShell。脚本接收合成证据，仅在仓库下的 `runtime/progress/` 保存进度。
 
 ~~~powershell
 node scripts/progress.cjs checks
@@ -69,4 +69,17 @@ Agent 断线后，换 Agent 在同一个文件夹运行 `status`。若刚才那�
 
 | 版本 | 内容 |
 | --- | --- |
+| v0.1.1 | 补齐发布版测试与 MIT 许可，说明首次输入目录准备，增加中文错误指引，取消进度条数上限并兼容四位以上修订号，放宽 Node.js 版本说明。 |
 | v0.1.0 | `vps-claude-delivery`。Windows＋iPhone、Windows＋Android 两条路线，含 VPS 指引、Windows 只读预检、设备材料生成、本地进度及恢复。Mac＋iPhone、Mac＋Android 共用 Karing 手动指南，待客户验收。设备实际结果按客户现场反馈记录。 |
+
+## 许可与离线检查
+
+本项目原创代码和文档采用 [MIT](LICENSE)。二维码组件保留其[原版权与 MIT 声明](scripts/vendor/NOTICE.md)。链接的客户端和上游软件分别适用其自身许可。
+
+脚本面向 Node.js 22 或更高版本；本次离线验证使用 v24.21.0，未在本机复测 Node.js 22。发布版包含 `tests/`，从仓库根目录运行：
+
+~~~powershell
+node --test tests/*.test.cjs tests/xray/*.test.cjs
+~~~
+
+这些测试仅在临时目录使用合成数据，不证明实际握手、网络切换或 Claude 回复已通过。进度事件保留原始顺序，不再设置 256 条上限，超过三位的修订号也可继续读取。遇到错误时，第一行保留错误码，后续中文说明给出处理步骤。

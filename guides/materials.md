@@ -1,10 +1,16 @@
 # 准备 Windows 和手机的独立节点材料
 
-先按 [VPS 指南](vps.md) 判断新建或复用，确认两台设备各有自己的节点身份。只有聊天能力时，沿用 VPS 指南的人工步骤。在客户电脑已有 Node.js 24 的情况下，可以用本页命令在本地准备文件。
+先按 [VPS 指南](vps.md) 判断新建或复用，确认两台设备各有自己的节点身份。只有聊天能力时，沿用 VPS 指南的人工步骤。在客户电脑已有 Node.js 22 或更高版本 的情况下，可以用本页命令在本地准备文件。
 
 ## 输入放在哪里
 
 在当前交付文件夹下新建 `runtime/node-materials/`，将填好的内容保存为 `input.json`。这个目录包含凭据，放在仅客户本人能访问的位置。Windows 的访问权限由文件夹继承。由客户从自己的 VPS 或节点管理入口填入，Agent 只需读取命令返回的状态。
+
+先从当前交付文件夹打开 PowerShell，建立输入目录，再由客户保存 `input.json`：
+
+~~~powershell
+New-Item -ItemType Directory -Force -Path runtime/node-materials | Out-Null
+~~~
 
 新建和复用共有以下字段：
 

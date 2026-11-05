@@ -106,7 +106,14 @@ if (require.main === module) {
   try { process.stdout.write(JSON.stringify(run(process.argv.slice(2))) + '\n'); }
   catch (error) {
     const message = /^[A-Z_]+$/.test(error.message) ? error.message : 'NODE_MATERIALS_IO_ERROR';
-    process.stderr.write(message + '\n');
+    const hints = {
+      LOCAL_INPUT_DIRECTORY_REQUIRED: '先从交付文件夹运行 PowerShell：New-Item -ItemType Directory -Force -Path runtime/node-materials | Out-Null，再按 guides/materials.md 保存 input.json。',
+      LOCAL_INPUT_FILE_REQUIRED: '请客户按 guides/materials.md 在本机保存 runtime/node-materials/input.json；不要把凭据发到聊天中。',
+      OUTPUT_ALREADY_EXISTS: '已有输出已保留。先由客户保管旧材料，再用独立版本文件夹生成；不要覆盖或删除原凭据。',
+      INVALID_INPUT_JSON: 'input.json 格式不正确，请在本机检查 JSON 标点；不要上传原文件。',
+      INVALID_NODE_FIELDS: '按 guides/materials.md 核对 new/reuse 字段、独立设备身份和密钥格式，手机只能选一种。'
+    };
+    process.stderr.write(message + '\n' + (hints[message] ?? '操作未完成。请按 guides/materials.md 核对命令与输入，保留已有文件。') + '\n');
     process.exitCode = 1;
   }
 }

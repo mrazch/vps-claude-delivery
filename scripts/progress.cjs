@@ -5,7 +5,6 @@ const path = require('node:path');
 const { randomUUID } = require('node:crypto');
 
 const SCHEMA_VERSION = 1;
-const MAX_EVENTS = 256;
 const STAGE_CHECKS = Object.freeze({
   preflight: ['device-inventory', 'account-eligibility', 'scope-reviewed'],
   vps: ['listener-readback', 'client-handshake', 'expected-exit'],
@@ -191,8 +190,7 @@ function createProgressStore(root, mode = 'simulation') {
     let state = createState(mode);
     const events = [];
     if (!available()) return { state, events };
-    const files = fs.readdirSync(directory).filter(name => /^[0-9]{3}\.json$/.test(name)).sort();
-    if (files.length > MAX_EVENTS) throw new Error('PROGRESS_EVENT_LIMIT');
+    const files = fs.readdirSync(directory).filter(name => /^[0-9]{3,}\.json$/.test(name)).sort((a, b) => Number(a.slice(0, -5)) - Number(b.slice(0, -5)));
     for (const file of files) {
       if (file !== eventName(state.revision + 1)) throw new Error('PROGRESS_SEQUENCE_INVALID');
       const entry = path.join(directory, file);
@@ -220,7 +218,7 @@ function createProgressStore(root, mode = 'simulation') {
       return { replayed: true, state };
     }
     if (expectedRevision !== state.revision) throw new Error('PROGRESS_CONFLICT');
-    if (state.revision === MAX_EVENTS) throw new Error('PROGRESS_EVENT_LIMIT');
+    if (!Number.isSafeInteger(state.revision + 1)) throw new Error('INVALID_REVISION');
     const updated = advance(state, action);
     const event = { schemaVersion: SCHEMA_VERSION, mode, revision: updated.revision, action };
 
@@ -291,7 +289,17 @@ if (require.main === module) {
     process.stdout.write(JSON.stringify(run(process.argv.slice(2)), null, 2) + '\n');
   } catch (error) {
     const message = /^[A-Z_]+$/.test(error.message) ? error.message : 'PROGRESS_IO_OR_FORMAT_ERROR';
-    process.stderr.write(message + '\n');
+    const hints = {
+      PROGRESS_CONFLICT: '进度已被另一条操作更新。先运行 status，按返回的 revision 和 next 继续，不要删除进度。',
+      RESTORE_REQUIRED: '先按 guides/recovery.md 恢复原连接，确认可用后用 restore 记录，再重新验收当前设备。',
+      STAGE_OUT_OF_ORDER: '先运行 status，使用 next 指定的阶段；可用检查项见 checks。',
+      INVALID_REVISION: '先运行 status，使用返回的 revision 修订号。',
+      NO_PENDING_RESTORE: '当前没有待恢复记录。先运行 status 确认阶段和下一步。',
+      INVALID_CHECKS: '运行 checks 查看允许的检查项，仅记录已确认的结果。',
+      INVALID_PROGRESS_EVENT: '进度文件异常。保留原目录和备份，改用本地反馈表，请 Agent 核对事件文件；不要删除重建。',
+      PROGRESS_SEQUENCE_INVALID: '进度记录缺号或文件名异常。保留全部文件和备份，请 Agent 核对，不要跳过记录。'
+    };
+    process.stderr.write(message + '\n' + (hints[message] ?? '操作未完成。先运行 status 和 checks 核对参数；无法读取时保留原文件，参考 README.md 和本地反馈表续接。') + '\n');
     process.exitCode = 1;
   }
 }
