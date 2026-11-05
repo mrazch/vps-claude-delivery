@@ -69,6 +69,7 @@ Agent 断线后，换 Agent 在同一个文件夹运行 `status`。若刚才那�
 
 | 版本 | 内容 |
 | --- | --- |
+| v0.1.3 | 补入 Mac Karing 固定 DMG 下载、导入图和具体故障处理，包括网络栈、切换后掉线与旧版本兼容组合的适用边界。 |
 | v0.1.1 | 补齐发布版测试与 MIT 许可，说明首次输入目录准备，增加中文错误指引，取消进度条数上限并兼容四位以上修订号，放宽 Node.js 版本说明。 |
 | v0.1.0 | `vps-claude-delivery`。Windows＋iPhone、Windows＋Android 两条路线，含 VPS 指引、Windows 只读预检、设备材料生成、本地进度及恢复。Mac＋iPhone、Mac＋Android 共用 Karing 手动指南，待客户验收。设备实际结果按客户现场反馈记录。 |
 
@@ -83,3 +84,9 @@ node --test tests/*.test.cjs tests/xray/*.test.cjs
 ~~~
 
 这些测试仅在临时目录使用合成数据，不证明实际握手、网络切换或 Claude 回复已通过。进度事件保留原始顺序，不再设置 256 条上限，超过三位的修订号也可继续读取。遇到错误时，第一行保留错误码，后续中文说明给出处理步骤。
+
+Mac 的本地下载脚本另外提供 Python 离线验证，仅模拟下载字节，不访问网络或运行安装包：
+
+~~~powershell
+python -m unittest discover -s tests -p "test_mac_download.py"
+~~~

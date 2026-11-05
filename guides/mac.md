@@ -12,7 +12,7 @@ Mac＋iPhone 和 Mac＋Android 共用这一份电脑方案。Mac 使用 Karing�
 
 1. 用「关于本机」记录 macOS 版本与 Apple 芯片或 Intel。确认用户有应用安装权限。先保存本页、所选手机指南和 [恢复指南](recovery.md)。记录原 VPN、网络服务的代理状态、是否按需连接，以及原业务样本。企业管理设置由管理员处理。[Apple 的 Mac VPN 设置](https://support.apple.com/en-mo/guide/mac-help/mchlp1579/mac)
 2. 既有节点先按 [VPS 指南](vps.md) 核对能否复用。需要新建时，先核对 Claude 使用条件、预算及 Karing 兼容风险，再由客户决定。确认 Mac 和手机各有独立身份，凭据、二维码和日志留在客户设备或 VPS。
-3. 仅使用官方发行。核对过的 Karing v1.2.25.2802 macOS universal PKG 已与官方发行记录的文件字节数和 SHA-256 核对一致，安装器签名和实际安装待客户核对。对这一个固定版本的 PKG，可在 Mac 本地查看摘要与签名，核对通过后再打开安装程序。[官方发行页](https://github.com/KaringX/karing/releases/tag/v1.2.25.2802) · [Apple 关于 Gatekeeper 和开发者签名的说明](https://support.apple.com/en-us/102445)
+3. 仅使用官方发行。已核对的 Karing v1.2.25.2802 macOS universal PKG 已与官方发行记录的文件字节数和 SHA-256 核对一致，安装器签名和实际安装待客户核对。对这一个固定版本的 PKG，可在 Mac 本地查看摘要与签名，核对通过后再打开安装程序。[官方发行页](https://github.com/KaringX/karing/releases/tag/v1.2.25.2802) · [Apple 关于 Gatekeeper 和开发者签名的说明](https://support.apple.com/en-us/102445)
 
 ~~~bash
 shasum -a 256 "./karing_1.2.25.2802_macos_universal.pkg"
@@ -33,3 +33,25 @@ pkgutil --check-signature "./karing_1.2.25.2802_macos_universal.pkg"
 出现异常时，打开本地恢复卡。在 Karing 内断开本次连接。如果应用打不开，从 macOS 系统设置的 VPN 页面确认活动项后处理。若本轮打开了按需连接或系统代理，按原记录恢复对应选项。再打开原 VPN，选回原节点和模式，恢复后用原业务样本核对结果。遇到管理策略限制时，保存最后可确认的状态，使用预留的本地支持入口。[Apple 的 Mac VPN 设置](https://support.apple.com/en-mo/guide/mac-help/mchlp1579/mac) · [Karing 按需连接设置](https://karing.app/en/app-manual/settings)
 
 Mac 分支使用 [本地脱敏反馈表](../docs/windows-iphone-field-test.md#4-客户反馈模板) 记录实际进度。手机独立导入，按对应指南验 Wi-Fi、蜂窝与重连。Agent 掉线后先恢复原业务，再从首个缺少证据的步骤续接。
+
+## 固定 DMG 下载与导入图
+
+客户已有 Python 3.9 或更高版本时，可在客户设备从本版目录下载固定 DMG：
+
+~~~bash
+python3 scripts/mac/download_karing.py --download
+~~~
+
+脚本只从官方地址下载 Karing 1.2.25.2802，校验 SHA-256；重复运行复用摘要匹配的文件。文件保存在 `runtime/mac-downloads/`，不自动挂载、安装、启动或修改代理。省略 `--download` 仅显示下一步，不联网。下载失败时保留原安装方式，不以未核验文件替代。
+
+该 DMG 的 SHA-256 为 `90aba8e17bdf15564710e84e6328ce9c9d3edcf45c79eccc1d33995d50c2f458`。与上面的 PKG 是两种安装资源，摘要不能混用。安装和首次启动涉及系统授权时由用户完成。核对应用版本 `1.2.25`、构建号 `2802` 后继续导入。
+
+![Karing 应用图标](images/mac/karing-icon.jpg)
+
+点击“添加配置”，然后从剪贴板导入刚才复制的 VLESS 链接。下图仅用于识别按钮，图中的配置名、延迟与全局选中状态都不作为客户的验收结果或默认分流要求。
+
+![Karing 添加配置入口](images/mac/karing-add-profile.jpg)
+
+## 连接失败时
+
+出现 `reality verification failed`、新节点反复失败，或后台测通但切换后 Agent 掉线时，直接转入 [Mac 故障处理](mac-troubleshooting.md)。先恢复可用连接，再依次核对 TUN 网络栈、节点字段、服务与时间；兼容组合按具体版本评估，跳过已尝试无效的步骤。导入成功和延迟数值不等于实际路径或 Claude 已通过。

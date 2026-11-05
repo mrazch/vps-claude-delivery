@@ -7,7 +7,7 @@ description: 引导客户预检 Claude 使用条件、部署或复用兼容 VPS�
 
 如果用户在切换中断网或 Agent 掉线，优先打开本地 [恢复指南](guides/recovery.md) 恢复原连接。原业务样本确认可用后再续接。
 
-收到 GitHub 发布入口时，先定位该 Release 的标签，从该标签读取仓库根目录的 `SKILL.md`。同一会话中的指南和脚本都从同一标签读取。已有本地副本时，从包含本文件的目录开始。电脑选 Windows 或 Mac，手机选 iPhone 或 Android。Mac 使用手动分支，组合状态见 [README](README.md)，操作顺序见 [客户操作与反馈单](docs/windows-iphone-field-test.md)。各组合按 README 记录的状态提供指引。
+收到 GitHub 发布入口时，先定位该 Release 的标签，从该标签读取仓库根目录的 `SKILL.md`。同一会话中的指南和脚本都从同一标签读取。已有本地副本时，从包含本文件的目录开始。电脑选 Windows 或 Mac，手机选 iPhone 或 Android。Mac 使用手动分支，安装材料可用 `scripts/mac/download_karing.py --download` 在客户设备获取；Karing 握手失败或切换后掉线时读取 [Mac 故障处理](guides/mac-troubleshooting.md)。组合状态见 [README](README.md)，操作顺序见 [客户操作与反馈单](docs/windows-iphone-field-test.md)。各组合按 README 记录的状态提供指引。
 
 ## 根据 Agent 能力执行
 
