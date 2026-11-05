@@ -22,6 +22,8 @@ description: 引导客户预检 Claude 使用条件、部署或复用兼容 VPS�
 
 ## 交付顺序
 
+需要选购 VPS 时，以 [VPS 节点选购与部署准备指南](guides/vps-purchase.md)作为客户主要采购参考。先筛选套餐与线路、核查候选 IP，客户本人付款后复核实际分配 IP，再衔接服务端部署。已有兼容节点优先复用。
+
 1. **预检。** 记录设备、版本、拟用节点、验收范围和下一步。先核对兼容节点能否复用。节点不兼容或证据不足时，把原因和选项交给客户决定。
 2. **VPS。** 新节点统一使用 Xray／VLESS＋REALITY＋Vision，外层 TCP。先读 [VPS 指南](guides/vps.md) 准备恢复，检查 443 的监听与两层防火墙，再按握手证据决定实际端口。单独保存分配结果、服务读回、客户端握手、出口核验。每台设备用独立凭据，规则与凭据分开。有本地工具时可按 [节点材料指南](guides/materials.md) 生成 Windows 路线材料。Mac 由节点所有者按 [Mac 手动指南](guides/mac.md) 准备独立 Mac 身份。客户自己填入凭据，Agent 只读脚本返回的状态。
 3. **准备恢复，再接入电脑。** 客户先保存 [恢复指南](guides/recovery.md)，记录原网络入口并确认手动恢复顺序。Windows 按 [Clash Verge 指南](guides/windows.md)，Mac 按 [Karing 指南](guides/mac.md)。分别核对直连样本、目标应用实际路径、Agent 通信和重启。
