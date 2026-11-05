@@ -20,6 +20,10 @@ description: 引导客户预检 Claude 使用条件、部署或复用兼容 VPS�
 - 购买前确认客户的实际使用地点符合 [Claude 支持地点](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)及[账号使用条件](https://support.claude.com/en/articles/8114491-get-started-with-claude)，能使用本人账号登录，并能从官方渠道获取客户端。条件未确认时暂停采购。
 - 客户本人完成购买确认、登录、扫码、系统授权和付款。逐项说明动作、影响和恢复办法。账号清理单独评估，先备份再确认具体范围。
 
+## IP 历史记录必须主动核查
+
+选定候选后主动按 [IP 历史核查流程](guides/ip-history.md)查询可取得的测试 IP，开通后重查实际分配 IP。发现明确滥用报告或污染记录时告知客户并换候选，不继续部署或切换该 IP。查询失败或资料缺失不能记为通过。API 可用时调用本地核查脚本，其他明确记录由 Agent 一并核对；不承诺证明“从未被滥用”。
+
 ## 交付顺序
 
 需要选购 VPS 时，以 [VPS 节点选购与部署准备指南](guides/vps-purchase.md)作为客户主要采购参考。先筛选套餐与线路、核查候选 IP，客户本人付款后复核实际分配 IP，再衔接服务端部署。已有兼容节点优先复用。

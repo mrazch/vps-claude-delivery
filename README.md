@@ -73,6 +73,7 @@ Agent 断线后，换 Agent 在同一个文件夹运行 `status`。若刚才那�
 
 | 版本 | 内容 |
 | --- | --- |
+| v0.1.5 | 加入选购后自动 IP 历史核查，明确报告提醒、未知不放行、开通后重查和查询范围。 |
 | v0.1.4 | 纳入 VPS 采购主要参考指南及三张原配图，接入套餐筛选、线路比较、IP 核查和开通后部署准备。 |
 | v0.1.3 | 补入 Mac Karing 固定 DMG 下载、导入图和具体故障处理，包括网络栈、切换后掉线与旧版本兼容组合的适用边界。 |
 | v0.1.1 | 补齐发布版测试与 MIT 许可，说明首次输入目录准备，增加中文错误指引，取消进度条数上限并兼容四位以上修订号，放宽 Node.js 版本说明。 |
@@ -95,3 +96,5 @@ Mac 的本地下载脚本另外提供 Python 离线验证，仅模拟下载字�
 ~~~powershell
 python -m unittest discover -s tests -p "test_mac_download.py"
 ~~~
+
+IP 历史核查按 [专用流程](guides/ip-history.md)主动执行；Python 离线测试用 `python -m unittest discover -s tests -p "test_*.py"`，真实查询仅在客户授权设备执行。
