@@ -47,7 +47,7 @@ class HistoryTests(unittest.TestCase):
             self.assertEqual(result["maxAgeInDays"], 365)
             self.assertIs(result["lifetimeCleanProven"], False)
             self.assertNotIn(IP, json.dumps(result)); self.assertNotIn("synthetic-key", json.dumps(result))
-            receipt = json.loads((root / result["receipt"]).read_text())
+            receipt = json.loads((root / result["receipt"]).read_text(encoding="utf-8"))
             self.assertEqual(receipt["ip"], IP)
             self.assertNotIn("synthetic-key", json.dumps(receipt))
 
@@ -74,7 +74,7 @@ class HistoryTests(unittest.TestCase):
         for changes in [{"ip": "127.0.0.1"}, {"ip": "224.0.0.1"}, {"apiKey": ""}, {"ip": "node.example.invalid"}, {"purpose": "other"}]:
             with tempfile.TemporaryDirectory() as temp:
                 root = Path(temp); folder = self.fixture(root)
-                value = json.loads((folder / "input.json").read_text()); value.update(changes)
+                value = json.loads((folder / "input.json").read_text(encoding="utf-8")); value.update(changes)
                 (folder / "input.json").write_text(json.dumps(value))
                 with patch.object(mod, "fetch", side_effect=AssertionError("network forbidden")) as request:
                     with self.assertRaises((mod.InvalidEvidence, ValueError)): mod.check(root)
